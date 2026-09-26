@@ -1,0 +1,45 @@
+# Dependencies
+node_modules/
+*/node_modules/
+
+# Environment
+.env
+.env.local
+*.env
+!.env.example
+
+# Builds
+dist/
+build/
+*/dist/
+*/build/
+
+# Logs
+*.log
+npm-debug.log*
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Docker
+mysql_data/
+redis_data/
+
+# Coverage
+coverage/
+.nyc_output/
+
+# Certificates
+*.pem
+*.key
+*.crt
+
+# Kubernetes secrets reales
+k8s/secrets-real.yaml
