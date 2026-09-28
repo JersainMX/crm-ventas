@@ -11,6 +11,7 @@ import { OrderItem } from './OrderItem.js';
 import { Invoice } from './Invoice.js';
 import { PipelineStage } from './PipelineStage.js';
 import { PipelineDeal } from './PipelineDeal.js';
+import { InvoicePayment } from './InvoicePayment.js';
 
 // ============ ASOCIACIONES ============
 
@@ -72,6 +73,13 @@ PipelineDeal.belongsTo(User, { foreignKey: 'seller_id', as: 'seller' });
 PipelineStage.hasMany(PipelineDeal, { foreignKey: 'stage_id', as: 'deals' });
 PipelineDeal.belongsTo(PipelineStage, { foreignKey: 'stage_id', as: 'stage' });
 
+// Invoice → Payments
+Invoice.hasMany(InvoicePayment, { foreignKey: 'invoice_id', as: 'payments', onDelete: 'CASCADE' });
+InvoicePayment.belongsTo(Invoice, { foreignKey: 'invoice_id', as: 'invoice' });
+
+User.hasMany(InvoicePayment, { foreignKey: 'created_by', as: 'payments_made' });
+InvoicePayment.belongsTo(User, { foreignKey: 'created_by', as: 'created_by_user' });
+
 // ============ EXPORTS ============
 export {
   sequelize,
@@ -85,6 +93,7 @@ export {
   Order,
   OrderItem,
   Invoice,
+  InvoicePayment,
   PipelineStage,
   PipelineDeal,
 };
