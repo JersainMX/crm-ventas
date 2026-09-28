@@ -1,0 +1,44 @@
+$kind: http-request
+name: http://localhost:4000/api/v1/auth/login
+description: ""
+url: http://localhost:4000/api/v1/auth/login
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \    \"email\": \"admin@crm.com\",\r
+
+    \    \"password\": \"Admin123!\"\r
+
+    }"
+scripts:
+  - type: afterResponse
+    code: "const jsonData = pm.response.json();\r
+
+      \r
+
+      // Guardar el token en variable de entorno\r
+
+      pm.environment.set(\"token\", jsonData.data.token);\r
+
+      \r
+
+      // Test para validar que el token existe\r
+
+      pm.test(\"Token recibido\", function () {\r
+
+      \    pm.expect(jsonData.data.token).to.not.be.undefined;\r
+
+      });\r
+
+      const res = pm.response.json();\r
+
+      pm.environment.set(\"token\", res.data.token);\r
+
+      console.log(\"Token guardado:\", res.data.token);"
+    language: text/javascript
+  - type: beforeRequest
+    code: ""
+    language: text/javascript
+order: 1790582559675

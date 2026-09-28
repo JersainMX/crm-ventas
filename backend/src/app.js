@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import rateLimit from 'express-rate-limit';
 import { env } from './config/env.js';
+import routes from './routes/index.js';
 
 const app = express();
 
@@ -13,7 +14,7 @@ app.use(cors({ origin: env.CORS_ORIGIN, credentials: true }));
 app.use(express.json({ limit: '2mb' }));
 app.use(express.urlencoded({ extended: true }));
 
-// Logger (solo en desarrollo)
+// Logger
 if (env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
@@ -25,7 +26,7 @@ app.use(rateLimit({
   message: { message: 'Demasiadas peticiones, intenta más tarde' },
 }));
 
-// Health check
+// Health
 app.get('/health', (req, res) => {
   res.json({
     status: 'ok',
@@ -34,7 +35,10 @@ app.get('/health', (req, res) => {
   });
 });
 
-// Ruta base (aún sin routers)
+// Rutas API
+app.use('/api/v1', routes);
+
+// Ruta base
 app.get('/api/v1', (req, res) => {
   res.json({ message: 'CRM Ventas API v1' });
 });
@@ -44,7 +48,7 @@ app.use((req, res) => {
   res.status(404).json({ message: 'Ruta no encontrada' });
 });
 
-// Error handler global
+// Error handler
 app.use((err, req, res, next) => {
   console.error('❌ Error:', err);
   res.status(err.status || 500).json({

@@ -1,0 +1,15 @@
+$kind: http-request
+name: http://localhost:4000/api/v1/auth/me
+description: ""
+url: http://localhost:4000/api/v1/auth/me
+method: GET
+headers:
+  Authorization: Bearer {{token}}
+body:
+  type: json
+  content: ""
+scripts:
+  - type: afterResponse
+    code: ""
+    language: text/javascript
+order: 3000527476974846
