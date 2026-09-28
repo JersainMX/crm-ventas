@@ -7,6 +7,7 @@ import productRoutes from './product.routes.js';
 import quoteRoutes from './quote.routes.js';
 import orderRoutes from './order.routes.js';
 import invoiceRoutes from './invoice.routes.js';
+import reportRoutes from './report.routes.js';
 
 const router = Router();
 
@@ -18,5 +19,6 @@ router.use('/products', productRoutes);
 router.use('/quotes', quoteRoutes);
 router.use('/orders', orderRoutes);
 router.use('/invoices', invoiceRoutes);
+router.use('/reports', reportRoutes);
 
 export default router;
